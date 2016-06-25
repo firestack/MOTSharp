@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace MOTSharp
 {
+    [Flags]
+    public enum ResponseType
+    {
+        recv = 0x1,
+        send = 0x2,
+    };
 
-    public enum ResponseType { recv, send };
     interface ICommand
     {
         ResponseType CommandType { get; }

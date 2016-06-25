@@ -7,7 +7,7 @@ using System.Net.Sockets;
 
 namespace MOTSharp
 {
-    public class MOTBot : MOTObject
+    public class MOTBot
     {
         
         protected DataTypes.Credentials cred;
@@ -18,11 +18,10 @@ namespace MOTSharp
 
         protected TcpClient SockConn;
         protected NetworkStream SockStream;
-        protected bool turnover = true;
+        protected bool running = true;
    
-        public MOTBot(MOTObject Parent, string server, int port, string nick, string pass) : base(Parent)
+        public MOTBot(string server, int port, string nick, string pass)
         {
-            
             cred = new DataTypes.Credentials(nick, pass);
 
             // Contect to twitch
@@ -30,7 +29,7 @@ namespace MOTSharp
             SockStream = SockConn.GetStream();             
         }
 
-        void send(string message)
+        virtual public void send(string message)
         {
             if ( SockConn.Connected ){
                 
@@ -41,7 +40,7 @@ namespace MOTSharp
             }
         }
 
-        string receive()
+        virtual protected string receive()
         {
             if (SockConn.Connected)
             {
@@ -57,7 +56,7 @@ namespace MOTSharp
             }
         }
 
-        string receiveLine()
+        virtual protected string receiveLine()
         {
             String bufferedLine = String.Empty;
 

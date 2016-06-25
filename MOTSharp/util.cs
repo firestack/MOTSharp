@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace MOTSharp
 {
-    public static class ReflectiveEnumerator
+    public static class Utils
     {
-        static ReflectiveEnumerator() { }
-
-        public static IEnumerable<Type> GetEnumerableOfType<T>()
+        public static IEnumerable<Type> GetEnumerableOfInterface<T>()
         {
             var type = typeof(T);
             IEnumerable<Type> types = AppDomain.CurrentDomain.GetAssemblies()

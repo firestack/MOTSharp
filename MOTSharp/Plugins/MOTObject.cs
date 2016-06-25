@@ -11,7 +11,7 @@ namespace MOTSharp
         public static MOTObject Global;
 
         MOTObject _parent;
-        MOTObject Parent {
+        public MOTObject Parent {
             get { return _parent; }
             set { _parent = value; _parent?.AddChild(this); }
         }
@@ -21,8 +21,7 @@ namespace MOTSharp
             this.Parent = Parent;
         }
 
-        List<MOTObject> Children = new List<MOTObject>();
-        
+        protected List<MOTObject> Children = new List<MOTObject>();
         public void AddChild(MOTObject Child)
         {
             if (!Children.Contains(Child) && Child.Parent == this)

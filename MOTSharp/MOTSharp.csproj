@@ -47,10 +47,14 @@
     <Compile Include="DataTypes\Credentials.cs" />
     <Compile Include="DataTypes\Message.cs" />
     <Compile Include="Interfaces\ICommand.cs" />
+    <Compile Include="MOTBot.cs" />
+    <Compile Include="Plugins\HelloWorld.cs" />
+    <Compile Include="Plugins\Plugin.cs" />
     <Compile Include="Plugins\MOTObject.cs" />
+    <Compile Include="Plugins\Printer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReflectiveEnumerator.cs" />
+    <Compile Include="util.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
