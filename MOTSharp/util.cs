@@ -18,5 +18,15 @@ namespace MOTSharp
 
             return types;
         }
+
+        public static IEnumerable<Type> GetEnumerableOfClass<T>()
+        {
+            var type = typeof(T);
+            IEnumerable<Type> types = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(s => s.GetTypes())
+                .Where(p => type.IsAssignableFrom(p) && !p.IsAbstract);
+
+            return types;
+        }
     }
 }

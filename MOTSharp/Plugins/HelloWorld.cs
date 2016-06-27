@@ -4,19 +4,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using MOTSharp.Attributes;
+
 namespace MOTSharp.Plugins
 {
-    class HelloWorld : Plugin
+    [PluginEnabled(false)]
+    class HelloWorld : IPlugin
     {
-        
-        HelloWorld(MOTObject P) : base(P) { }
-
-
-        public override void Execute(string M)
+        public override void Execute(DataTypes.Message M)
         {
-            if (M.Contains("Hello"))
+            if (M.message.Contains("Hello"))
             {
-                MaskOfTruth.Bot.send("PRIVMSG #bomb_mask :Hello!");
+                Bots.MaskOfTruth.Bot.PM(M.actions[2], "Hiya!");
             }
         }
     }
