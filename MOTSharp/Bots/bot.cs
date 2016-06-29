@@ -7,7 +7,7 @@ using System.Net.Sockets;
 
 namespace MOTSharp
 {
-    public class MOTBot
+    public class Bot
     {
         
         protected DataTypes.Credentials cred;
@@ -20,7 +20,7 @@ namespace MOTSharp
         protected NetworkStream SockStream;
         protected bool running = true;
    
-        public MOTBot(string server, int port, string nick, string pass)
+        public Bot(string server, int port, string nick, string pass)
         {
             cred = new DataTypes.Credentials(nick, pass);
 

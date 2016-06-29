@@ -6,7 +6,7 @@ namespace MOTSharp {
     class Program {
         static void Main(string[] args) {
 
-            var MOT = new Bots.MaskOfTruth("irc.chat.twitch.tv", 80, "whitetail_atom", "oauth:");
+            var MOT = new Bots.MaskOfTruth("irc.chat.twitch.tv", 80, "themaskoftruth", "oauth:");
 
             MOT.SuperUsers.AddRange(new string[] { "bomb_mask" });
 

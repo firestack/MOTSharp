@@ -9,7 +9,7 @@ namespace MOTSharp.Plugins
     [Attributes.PluginEnabled(true)]
     class JoinOperator : IPlugin
     {
-        [Attributes.Command(DataTypes.Permissions.SUPERUSER, DataTypes.MsgAction.PRIVMSG, "-join")]
+        [Attributes.Command(DataTypes.Permissions.SUPERUSER, DataTypes.MsgAction.PRIVMSG, ">join")]
         public override void Execute(DataTypes.Message M)
         {
             foreach (string channel in M.message.Split(new char[] { ' ' }).Skip(1))

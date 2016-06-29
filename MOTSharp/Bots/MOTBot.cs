@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MOTSharp.Bots
 {
-    public class MaskOfTruth : MOTBot
+    public class MaskOfTruth : Bot
     {
         public static MaskOfTruth Bot;
 
@@ -24,11 +24,12 @@ namespace MOTSharp.Bots
         public delegate void ParsedMessage(MOTSharp.DataTypes.Message M);
         public ParsedMessage OnMessage;
 
-        protected DynamicPlugin pluginDispatch = new DynamicPlugin();
+        protected DynamicPlugin pluginDispatch;
 
         public MaskOfTruth(string server, int port, string nick, string pass) : base(server, port, nick, pass)
         {
-            
+            pluginDispatch = new DynamicPlugin(this);
+
             Bot = this;
             Startup += login;
             Startup += () => SuperUsers.ForEach((S) => S.ToLower());
@@ -37,7 +38,6 @@ namespace MOTSharp.Bots
             Shutdown += () => SockConn.Close();
 
             OnSend += (string M) => Console.WriteLine(">> " + M);
-            //OnReceive += (string M) => Console.WriteLine("<< " + M);
 
             OnReceive += (string M) =>
             {

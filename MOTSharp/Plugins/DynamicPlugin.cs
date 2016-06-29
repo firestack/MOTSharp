@@ -10,6 +10,7 @@ namespace MOTSharp
 {
     public class DynamicPlugin
     {
+        protected Bots.MaskOfTruth parent;
 
         protected List<IPlugin> invokeList = new List<IPlugin>();
 
@@ -47,8 +48,9 @@ namespace MOTSharp
             }
         }
 
-       public DynamicPlugin()
+       public DynamicPlugin(Bots.MaskOfTruth parent)
         {
+            this.parent = parent;
             FindPlugins();
         }
 

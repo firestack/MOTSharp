@@ -7,13 +7,13 @@ using MOTSharp.DataTypes;
 
 namespace MOTSharp.Plugins
 {
-    [Attributes.PluginEnabled(true)]
-    class SuperUser : IPlugin
+    [Attributes.PluginEnabled(false)]
+    class Responder : IPlugin
     {
-        [Attributes.Command(Permissions.SUPERUSER, MsgAction.PRIVMSG, ">superuser add")]
+        [Attributes.Command(Permissions.TMI, MsgAction.CLEARCHAT | MsgAction.PRIVMSG, "")]
         public override void Execute(Message message)
         {
-            Bots.MaskOfTruth.Bot.PM(new string(message.actions[2].Skip(1).ToArray()), "Haha, No");
+            Console.WriteLine("MESSAGE!! {0} {1}", message.msgAction.ToString(), message.message);
         }
     }
 }

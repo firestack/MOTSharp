@@ -69,7 +69,7 @@ namespace MOTSharp.DataTypes
                 if (_parts == null)
                 {
                     var tmp = (hasTags ? raw.Split(new char[] { ' ' }, 2)[1] : raw);
-                    _parts = tmp.Split(new char[] { ':' }, 3, StringSplitOptions.RemoveEmptyEntries);
+                    _parts = tmp.Split(new char[] { ':' }, 2, StringSplitOptions.RemoveEmptyEntries);
                 }
                 return _parts;
             }
@@ -176,6 +176,19 @@ namespace MOTSharp.DataTypes
                     _isPing = raw.StartsWith("PING");
                 }
                 return (bool)_isPing;
+            }
+        }
+
+        protected string _channel;
+        public string channel
+        {
+            get
+            {
+                if (_channel == null)
+                {
+                    _channel = new String(actions[2].Skip(1).ToArray());
+                }
+                return _channel;
             }
         }
 

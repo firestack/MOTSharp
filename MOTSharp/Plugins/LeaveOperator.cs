@@ -9,7 +9,7 @@ namespace MOTSharp.Plugins
     [Attributes.PluginEnabled(true)]
     class LeaveOperator : IPlugin
     {
-        [Attributes.Command(DataTypes.Permissions.SUPERUSER, DataTypes.MsgAction.PRIVMSG, "-leave")]
+        [Attributes.Command(DataTypes.Permissions.SUPERUSER, DataTypes.MsgAction.PRIVMSG, ">leave")]
         public override void Execute(DataTypes.Message message)
         {
             foreach (string channel in message.message.Split(new char[] { ' ' }).Skip(1))

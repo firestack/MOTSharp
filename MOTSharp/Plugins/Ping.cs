@@ -14,7 +14,7 @@ namespace MOTSharp.Plugins
         public override void Execute(Message message)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Recieved PING!!! {0}", message.raw.Replace("PING", "PONG"));
+            //Console.WriteLine("Recieved PING!!! {0}", message.raw.Replace("PING", "PONG"));
             Bots.MaskOfTruth.Bot.send(message.raw.Replace("PING", "PONG"));
             Console.ForegroundColor = ConsoleColor.White;
         }
