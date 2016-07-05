@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using MOTSharp.Bots;
 using MOTSharp.DataTypes;
+using MOTSharp.Enums;
 
 namespace MOTSharp.Plugins
 {
@@ -11,11 +14,10 @@ namespace MOTSharp.Plugins
     class Ping : IPlugin
     {
         [Attributes.Command(Permissions.TMI, MsgAction.PING, "")]
-        public override void Execute(Message message)
+        public override void Execute(MaskOfTruth bot, PluginConfig cfg, Message message)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            //Console.WriteLine("Recieved PING!!! {0}", message.raw.Replace("PING", "PONG"));
-            Bots.MaskOfTruth.Bot.send(message.raw.Replace("PING", "PONG"));
+            bot.send(message.raw.Replace("PING", "PONG"));
             Console.ForegroundColor = ConsoleColor.White;
         }
     }

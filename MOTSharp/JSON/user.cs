@@ -10,10 +10,10 @@ namespace MOTSharp.JSON
     class user 
     {
         [JsonProperty("display_name")]
-        public string display_name;
+        public string display_name { get; set; }
         [JsonProperty("_id")]
-        public int id;
+        public int id { get; set; }
         [JsonProperty("created_at")]
-        public System.DateTime created_at;
+        public System.DateTime created_at { get; set; }
     }
 }

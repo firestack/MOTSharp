@@ -9,12 +9,12 @@ namespace MOTSharp.Bots
     class TestBot : MaskOfTruth
     {
         System.IO.StreamReader fin;
-        public TestBot(string server, int port, string nick, string pass, string filename) : base(server, port, nick, pass)
+        public TestBot(string server, int port, string config, string filename) : base(server, port, config)
         {
             fin = new System.IO.StreamReader(filename);
             OnReceive = (string M) =>
             {
-                var incomingMessage = new DataTypes.Message(M);
+                var incomingMessage = new DataTypes.Message(this, M);
                 if (incomingMessage.isVaild)
                 {
                     OnMessage(incomingMessage);

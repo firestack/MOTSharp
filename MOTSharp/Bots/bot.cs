@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Net.Sockets;
 
 namespace MOTSharp
@@ -20,13 +18,16 @@ namespace MOTSharp
         protected NetworkStream SockStream;
         protected bool running = true;
    
-        public Bot(string server, int port, string nick, string pass)
-        {
-            cred = new DataTypes.Credentials(nick, pass);
 
-            // Contect to twitch
+        public Bot(string server, int port, string nick, string pass) : this(nick, pass)
+        {// Contect to twitch
             SockConn = new TcpClient(server, port);
             SockStream = SockConn.GetStream();             
+        }
+
+        protected Bot(string nick, string pass)
+        {
+            cred = new DataTypes.Credentials(nick, pass);
         }
 
         virtual public void send(string message)
@@ -85,5 +86,6 @@ namespace MOTSharp
             }
             return bufferedLine;
         }
+
     }
 }

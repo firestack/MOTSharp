@@ -11,6 +11,6 @@ namespace MOTSharp.Plugins
     [PluginEnabled(true)]
     public abstract class IPlugin
     {
-        abstract public void Execute(DataTypes.Message message);
+        abstract public void Execute(Bots.MaskOfTruth bot, DataTypes.PluginConfig cfg, DataTypes.Message message);
     }
 }

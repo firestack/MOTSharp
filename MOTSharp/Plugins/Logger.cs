@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using MOTSharp.Bots;
 using MOTSharp.DataTypes;
+using MOTSharp.Enums;
 
 namespace MOTSharp.Plugins
 {
-    [Attributes.PluginEnabled(false)]
+    [Attributes.PluginEnabled(true)]
     class Logger : IPlugin
     {
         System.IO.StreamWriter fout;
@@ -24,7 +27,7 @@ namespace MOTSharp.Plugins
         }
 
         [Attributes.Command(Permissions.TMI, MsgAction.ALL, "")]
-        public override void Execute(Message message)
+        public override void Execute(MaskOfTruth bot, PluginConfig cfg, Message message)
         {
             fout.WriteLine(message.raw);
 

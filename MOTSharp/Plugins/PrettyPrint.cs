@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using MOTSharp.Bots;
 using MOTSharp.DataTypes;
+using MOTSharp.Enums;
 
 namespace MOTSharp.Plugins
 {
@@ -11,7 +14,7 @@ namespace MOTSharp.Plugins
     class PrettyPrint : IPlugin
     {
         [Attributes.Command(Permissions.NONE, MsgAction.ALL, "")]
-        public override void Execute(Message message)
+        public override void Execute(MaskOfTruth bot, PluginConfig cfg, Message message)
         {
             switch (message.userPermissions)
             {

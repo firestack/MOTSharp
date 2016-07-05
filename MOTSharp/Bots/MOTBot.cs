@@ -26,8 +26,13 @@ namespace MOTSharp.Bots
 
         protected DynamicPlugin pluginDispatch;
 
-        public MaskOfTruth(string server, int port, string nick, string pass) : base(server, port, nick, pass)
+        public DataTypes.Config cfg;
+
+        public MaskOfTruth(string server, int port, string config) : base(server, port, "", "")
         {
+            cfg = new DataTypes.Config(config);
+            cred = new DataTypes.Credentials(cfg.cfgFile.twitch.username, cfg.cfgFile.twitch.password);
+
             pluginDispatch = new DynamicPlugin(this);
 
             Bot = this;
@@ -41,7 +46,7 @@ namespace MOTSharp.Bots
 
             OnReceive += (string M) =>
             {
-                var incomingMessage = new DataTypes.Message(M);
+                var incomingMessage = new DataTypes.Message(this, M);
                 if (incomingMessage.isVaild)
                 {
                     OnMessage(incomingMessage);

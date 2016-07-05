@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MOTSharp.Enums;
 
 namespace MOTSharp.DataTypes
 {
     public class Message
     {
         // https://github.com/ircv3/ircv3-specifications/blob/master/core/message-tags-3.2.md
-
+        protected Bots.MaskOfTruth bot;
         public string raw { get; private set; }
         DateTime Time = DateTime.UtcNow;
 
@@ -97,7 +98,7 @@ namespace MOTSharp.DataTypes
                 {
                     if (isUserMessage)
                     {
-                        if (Bots.MaskOfTruth.Bot.SuperUsers.Contains(tags["display-name"].ToLower())){
+                        if (bot.SuperUsers.Contains(tags["display-name"].ToLower())){
                             _userPermissions = Permissions.SUPERUSER;
                         }
                         else if (tags["display-name"].ToLower().Equals(new String(actions[2].Skip(1).ToArray()).ToLower()))
@@ -192,8 +193,9 @@ namespace MOTSharp.DataTypes
             }
         }
 
-        public Message(string raw)
+        public Message(Bots.MaskOfTruth Bot, string raw)
         {
+            this.bot = Bot;
             this.raw = raw.Trim(new char[] { '\r', '\n' });
         }
 

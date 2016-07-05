@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using MOTSharp.Bots;
 using MOTSharp.DataTypes;
+using MOTSharp.Enums;
 
 namespace MOTSharp.Plugins
 {
@@ -11,9 +14,9 @@ namespace MOTSharp.Plugins
     class Quit : IPlugin
     {
         [Attributes.Command(Permissions.SUPERUSER, MsgAction.PRIVMSG, ">Quit")]
-        public override void Execute(Message message)
+        public override void Execute(MaskOfTruth bot, PluginConfig cfg, Message message)
         {
-            Bots.MaskOfTruth.Bot.stop();
+            bot.stop();
         }
     }
 }

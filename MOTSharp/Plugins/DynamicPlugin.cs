@@ -5,45 +5,74 @@ using System.Text;
 using System.Threading.Tasks;
 using MOTSharp.Plugins;
 using MOTSharp.Attributes;
-
+using MOTSharp.Enums;
 namespace MOTSharp
 {
     public class DynamicPlugin
     {
         protected Bots.MaskOfTruth parent;
 
-        protected List<IPlugin> invokeList = new List<IPlugin>();
+        protected List<Tuple<IPlugin, Command, PluginEnabled>> invokeList = new List<Tuple<IPlugin, Command, PluginEnabled>>();
 
         public void Invoke(DataTypes.Message message)
         {
-
-            foreach (IPlugin plugin in invokeList)
-            {
-
-                var Attr = plugin.GetType().GetMethod("Execute").GetCustomAttributes(typeof(Command), true).ToList().Find((idx) => idx is Command ) as Command;
-                if (Attr == null)
-                {
-                    continue;
-                }
+            
+            invokeList.ForEach((plugin) => {
                 
-                if (Attr.RespondsTo.HasFlag(message.msgAction) && message.userPermissions.CompareTo(Attr.AccessLevel) >= 0)
+                var methodAttribute = plugin.Item2;
+                
+                if (methodAttribute.RespondsTo.HasFlag(message.msgAction) && message.userPermissions.CompareTo(methodAttribute.AccessLevel) >= 0)
                 {
-                    if (message.message.StartsWith(Attr.command) || Attr.command == String.Empty)
+                    if (message.message.StartsWith(methodAttribute.command) || methodAttribute.command == String.Empty)
                     {
-                        plugin.Execute(message);
+                        DataTypes.GenericConfig config = null;
+                        switch (message.msgAction.GetMessageScope())
+                        {
+                            case MsgType.USER:
+                            case MsgType.GLOBAL:
+                                config = parent.cfg.globalConfig;
+                                break;
+                            case MsgType.CHANNEL:
+                                config = parent.cfg.GetChannel(message.channel);
+                                break;
+                            default:
+                                return;
+                        }
+                        
+                        var cfg = config.GetPluginConfig(plugin.Item1);
+                        if (cfg.enabled)
+                        {
+                            plugin.Item1.Execute(parent, cfg, message);
+                        }
+                        
                     }
-                                     
+
                 }
-            }
+            });
+
         }
 
         protected void FindPlugins()
         {
             foreach(Type plugin in Utils.GetEnumerableOfClass<IPlugin>())
             {
-                if(((PluginEnabled)plugin.GetCustomAttributes(typeof(PluginEnabled), true)?[0]).enabled)
+                PluginEnabled pluginAttribute = plugin.GetCustomAttributes(typeof(PluginEnabled), true)[0] as PluginEnabled;
+                if (pluginAttribute != null && pluginAttribute.enabled)
                 {
-                    invokeList.Add((IPlugin)Activator.CreateInstance(plugin));
+                    var inst = (IPlugin)Activator.CreateInstance(plugin);
+
+                    var methodAttribute = inst.GetType()
+                        .GetMethod("Execute")
+                        .GetCustomAttributes(typeof(Command), true)
+                        .ToList()
+                        .Find(
+                            (idx) => idx is Command)
+                    as Command;
+
+                    if (methodAttribute != null)
+                    {
+                        invokeList.Add(Tuple.Create(inst, methodAttribute, pluginAttribute));
+                    }                    
                 }
             }
         }

@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+using MOTSharp.Bots;
 using MOTSharp.DataTypes;
+using MOTSharp.Enums;
 
 namespace MOTSharp.Plugins
 {
-    [Attributes.PluginEnabled(true)]
+    [Attributes.PluginEnabled(true, true)]
     class SuperUser : IPlugin
     {
         [Attributes.Command(Permissions.SUPERUSER, MsgAction.PRIVMSG, ">superuser add")]
-        public override void Execute(Message message)
+        public override void Execute(MaskOfTruth bot, PluginConfig cfg, Message message)
         {
-            Bots.MaskOfTruth.Bot.PM(new string(message.actions[2].Skip(1).ToArray()), "Haha, No");
+            bot.PM(message.channel, "Haha, No");
         }
     }
 }
