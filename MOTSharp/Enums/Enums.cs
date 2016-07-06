@@ -17,7 +17,7 @@ namespace MOTSharp.Enums
     };
 
     [Flags]
-    public enum MsgAction : short // 16 Bits of Flags!
+    public enum MsgAction : int // 32 Bits of Flags!
     {
         UNKNOWN     = 1 << 0,
         PRIVMSG     = 1 << 1,
@@ -47,18 +47,13 @@ namespace MOTSharp.Enums
     {
         public static MsgType GetMessageScope(this MsgAction act)
         {
+            var ChannelFlags = MsgAction.PRIVMSG | MsgAction.USERSTATE | MsgAction.ROOMSTATE | MsgAction.CLEARCHAT | MsgAction.NOTICE;
+
+
             if (act.HasFlag(MsgAction.WHISPER)) {
                 return MsgType.USER;
             }
-            else if (
-                act.HasFlag(
-                    MsgAction.PRIVMSG
-                    & MsgAction.USERSTATE
-                    & MsgAction.ROOMSTATE
-                    & MsgAction.CLEARCHAT
-                    & MsgAction.NOTICE
-                )
-            )
+            else if (act.HasFlag(ChannelFlags))
             {
                 return MsgType.CHANNEL;
             }

@@ -24,7 +24,7 @@ namespace MOTSharp.Bots
         public delegate void ParsedMessage(MOTSharp.DataTypes.Message M);
         public ParsedMessage OnMessage;
 
-        protected DynamicPlugin pluginDispatch;
+        internal DynamicPlugin pluginDispatch;
 
         public DataTypes.Config cfg;
 
@@ -46,8 +46,9 @@ namespace MOTSharp.Bots
 
             OnReceive += (string M) =>
             {
-                var incomingMessage = new DataTypes.Message(this, M);
-                if (incomingMessage.isVaild)
+                var incomingMessage = DataTypes.Message.ParseMessageString(this, M);
+                
+                if (incomingMessage.isValid)
                 {
                     OnMessage(incomingMessage);
                 }

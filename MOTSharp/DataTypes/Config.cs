@@ -17,11 +17,7 @@ namespace MOTSharp.DataTypes
         internal Dictionary<string, string> TLData = new Dictionary<string, string>();
         internal JSON.configFile cfgFile;
 
-        public Config() : this(@"Data/config.json") {
-            channelConfig = new Dictionary<string, ChannelConfig>();
-            globalConfig = new GlobalConfig();
-            Update();
-        }
+        public Config() : this(@"Data/config.json") {}
 
         public Config(string configFile)
         {
@@ -30,6 +26,10 @@ namespace MOTSharp.DataTypes
                 cfgFile = Newtonsoft.Json.JsonConvert.DeserializeObject<JSON.configFile>(fin.ReadToEnd());
                 uri = new Uri(cfgFile.motapi);
             }
+
+            channelConfig = new Dictionary<string, ChannelConfig>();
+            globalConfig = new GlobalConfig();
+            Update();
         }
 
         public void Update()

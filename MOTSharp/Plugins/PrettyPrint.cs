@@ -16,7 +16,7 @@ namespace MOTSharp.Plugins
         [Attributes.Command(Permissions.NONE, MsgAction.ALL, "")]
         public override void Execute(MaskOfTruth bot, PluginConfig cfg, Message message)
         {
-            switch (message.userPermissions)
+            switch (message.permission)
             {
                 case Permissions.NONE:
                     Console.ForegroundColor = ConsoleColor.DarkMagenta;

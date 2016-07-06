@@ -14,8 +14,8 @@ namespace MOTSharp.Bots
             fin = new System.IO.StreamReader(filename);
             OnReceive = (string M) =>
             {
-                var incomingMessage = new DataTypes.Message(this, M);
-                if (incomingMessage.isVaild)
+                var incomingMessage = DataTypes.Message.ParseMessageString (this, M);
+                if (incomingMessage.isValid)
                 {
                     OnMessage(incomingMessage);
                 }

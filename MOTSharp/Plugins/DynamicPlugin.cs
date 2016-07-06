@@ -12,7 +12,7 @@ namespace MOTSharp
     {
         protected Bots.MaskOfTruth parent;
 
-        protected List<Tuple<IPlugin, Command, PluginEnabled>> invokeList = new List<Tuple<IPlugin, Command, PluginEnabled>>();
+        public List<Tuple<IPlugin, Command, PluginEnabled>> invokeList = new List<Tuple<IPlugin, Command, PluginEnabled>>();
 
         public void Invoke(DataTypes.Message message)
         {
@@ -21,12 +21,12 @@ namespace MOTSharp
                 
                 var methodAttribute = plugin.Item2;
                 
-                if (methodAttribute.RespondsTo.HasFlag(message.msgAction) && message.userPermissions.CompareTo(methodAttribute.AccessLevel) >= 0)
+                if (methodAttribute.RespondsTo.HasFlag(message.action) && message.permission.CompareTo(methodAttribute.AccessLevel) >= 0)
                 {
                     if (message.message.StartsWith(methodAttribute.command) || methodAttribute.command == String.Empty)
                     {
                         DataTypes.GenericConfig config = null;
-                        switch (message.msgAction.GetMessageScope())
+                        switch (message.action.GetMessageScope())
                         {
                             case MsgType.USER:
                             case MsgType.GLOBAL:
