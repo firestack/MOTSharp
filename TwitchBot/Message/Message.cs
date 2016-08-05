@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MOTSharp.Enums;
 
-namespace MOTSharp.DataTypes
+namespace TwitchBot.Message
 {
 	public abstract class Message
 	{
-		public static Message ParseMessageString(Bots.MaskOfTruth bot, string msgStr)
+		public static Message ParseMessageString(Classes.Bot bot, string msgStr)
 		{
 			// Parse Base Message
 			Message msg = null;
@@ -37,7 +36,7 @@ namespace MOTSharp.DataTypes
 			return msg;
 		}
 
-		public virtual void Init(Bots.MaskOfTruth bot, string raw)
+		public virtual void Init(Classes.Bot bot, string raw)
 		{
 			this.bot = bot;
 			this.raw = raw;
@@ -46,11 +45,11 @@ namespace MOTSharp.DataTypes
 		}
 		// Info
 		public DateTime time { get; private set; }
-		protected Bots.MaskOfTruth bot;
+		protected Classes.Bot bot;
 		
 		// Utility
-		public virtual MsgAction action { get; }
-		public virtual Permissions permission { get; }
+		public virtual ECommand action { get; }
+		public virtual EPermissions permission { get; }
 		public virtual string channel { get; }
 		public virtual string user { get; }
 		public virtual bool isValid { get; }
@@ -68,18 +67,18 @@ namespace MOTSharp.DataTypes
 
 	public abstract class BaseMessage : Message
 	{
-		protected MsgAction? actionCache;
-		public override MsgAction action
+		protected ECommand? actionCache;
+		public override ECommand action
 		{
 			get
 			{
 				if (actionCache == null)
 				{
 					int tmpInt;
-					MsgAction TVal;
+					ECommand TVal;
 					if (int.TryParse(command[0], out tmpInt))
 					{
-						actionCache = MsgAction.NUMERIC;
+						actionCache = ECommand.NUMERIC;
 					}
 					else if (Enum.TryParse(command[0], out TVal))
 					{
@@ -87,10 +86,10 @@ namespace MOTSharp.DataTypes
 					}
 					else
 					{
-						actionCache = MsgAction.UNKNOWN;
+						actionCache = ECommand.UNKNOWN;
 					}
 				}
-				return (MsgAction)actionCache;
+				return (ECommand)actionCache;
 			}
 		}
 
@@ -109,7 +108,7 @@ namespace MOTSharp.DataTypes
 
 		public override bool isValid { get { return !string.IsNullOrWhiteSpace(raw); } }
 
-		public override bool isUserMessage { get { return action == MsgAction.PRIVMSG; } }
+		public override bool isUserMessage { get { return action == ECommand.PRIVMSG; } }
 
 		protected string prefixCache;
 		public override string prefix
@@ -248,8 +247,8 @@ namespace MOTSharp.DataTypes
 		// therefore we are compatible with all IRC spec
 		// And WHEN twitch changes everything up, we will be ready
 
-		public override MsgAction action { get { return MsgAction.PING; } }
-		public override Permissions permission { get { return Permissions.TMI; } }
+		public override ECommand action { get { return ECommand.PING; } }
+		public override EPermissions permission { get { return EPermissions.TMI; } }
 		public override string prefix { get { return "PING"; } }
 		public override List<string> command { get { return (new string[] { "PING" }).ToList(); } }
 		public override string message { get { return "tmi.twitch.tv"; } }
@@ -257,8 +256,8 @@ namespace MOTSharp.DataTypes
 
 	public class TagsMessage : Tags
 	{
-		protected Permissions? permissionCache;
-		public override Permissions permission
+		protected EPermissions? permissionCache;
+		public override EPermissions permission
 		{
 			get
 			{
@@ -266,33 +265,34 @@ namespace MOTSharp.DataTypes
 				{
 					if (!isUserMessage)
 					{
-						permissionCache = Permissions.TMI;
+						permissionCache = EPermissions.TMI;
 					}
-					else if (bot != null && bot.SuperUsers.Contains(tags["display-name"].ToLower()))
-					{
-						permissionCache = Permissions.SUPERUSER;
-					}
+					// HACK: Fix Superusers
+					//else if (bot != null && bot.SuperUsers.Contains(tags["display-name"].ToLower()))
+					//{
+					//    permissionCache = EPermissions.SUPERUSER;
+					//}
 					else if (user.ToLower() == channel.ToLower())
 					{
-						permissionCache = Permissions.BROADCASTER;
+						permissionCache = EPermissions.BROADCASTER;
 					}
 					else if (tags["user-type"].Equals("mod"))
 					{
-						permissionCache = Permissions.MOD;
+						permissionCache = EPermissions.MOD;
 					}
 					//se if (tags["subscriber"])
 					else
 					{
-						permissionCache = Permissions.USER;
+						permissionCache = EPermissions.USER;
 					}
 				}
-				return (Permissions)permissionCache;
+				return (EPermissions)permissionCache;
 			}
 		}
 
 		public override string ToString()
 		{
-			if (action == MsgAction.PRIVMSG)
+			if (action == ECommand.PRIVMSG)
 				return "#" + channel + "::" + permission.ToString() + ":" + user + " :" + message;
 			else
 				return base.ToString();
@@ -302,6 +302,6 @@ namespace MOTSharp.DataTypes
 	
 	public class NoTagsMessage : NoTags
 	{
-		public override Permissions permission { get { return Permissions.TMI; } }
+		public override EPermissions permission { get { return EPermissions.TMI; } }
 	}
 }

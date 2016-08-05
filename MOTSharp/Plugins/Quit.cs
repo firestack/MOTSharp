@@ -10,13 +10,13 @@ using MOTSharp.Enums;
 
 namespace MOTSharp.Plugins
 {
-    [Attributes.PluginEnabled(true)]
-    class Quit : IPlugin
-    {
-        [Attributes.Command(Permissions.SUPERUSER, MsgAction.PRIVMSG, ">Quit")]
-        public override void Execute(MaskOfTruth bot, PluginConfig cfg, Message message)
-        {
-            bot.stop();
-        }
-    }
+	[Attributes.PluginEnabled(true)]
+	class Quit : IPlugin
+	{
+		[Attributes.Command(Permissions.SUPERUSER, MsgAction.PRIVMSG, ">Quit")]
+		public override void Execute()
+		{
+			bot.stop();
+		}
+	}
 }

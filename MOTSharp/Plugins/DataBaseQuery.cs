@@ -12,59 +12,50 @@ using Npgsql;
 namespace MOTSharp.Plugins
 {
 
-    [Attributes.PluginEnabled(false, false)]
-    class DataBaseQuery : IPlugin
-    {
-        public NpgsqlConnection db;
-        public NpgsqlCommand cmd = new NpgsqlCommand();
-        public Uri pgurl;
+	[Attributes.PluginEnabled(false, false)]
+	class DataBaseQuery : IPlugin
+	{
+		public NpgsqlConnection db;
+		public NpgsqlCommand cmd = new NpgsqlCommand();
+		public Uri pgurl;
 
-        public DataBaseQuery()
-        {
-            pgurl = new Uri(@"postgres://postgres:mysecretpassword@107.170.251.210:32489/dev");
-            db = new NpgsqlConnection(
-                new NpgsqlConnectionStringBuilder(
-                    String.Format(
-                        "Host={0};Port={1};Database={2};Username={3};Password={4}", 
-                        pgurl.Host, pgurl.Port, pgurl.GetPathEnd(), pgurl.GetUsername(), pgurl.GetPassword()
-                    )
-                )
-            );
+		public DataBaseQuery()
+		{
+			db = PGDBExtentions.ConnectionFromURL(new Uri(@"postgres://postgres:mysecretpassword@107.170.251.210:32489/dev"));
+			db.Open();
+			cmd.Connection = db;
+		}
 
-            db.Open();
-            cmd.Connection = db;
-        }
+		[Attributes.Command(Permissions.MOD, MsgAction.PRIVMSG, ">info")]
+		public override void Execute()
+		{
 
-        [Attributes.Command(Permissions.MOD, MsgAction.PRIVMSG, ">info")]
-        public override void Execute(MaskOfTruth bot, PluginConfig cfg, Message message)
-        {
+			cmd.CommandText = QueryString(cfg, message);
 
-            cmd.CommandText = QueryString(cfg, message);
+			var messageAction = new Task(async () => {
+				var a = await ExecuteCmd();
+				bot.PM(message.channel, Response(cfg, message, a));
+			});
 
-            var messageAction = new Task(async () => {
-                var a = await ExecuteCmd();
-                bot.PM(message.channel, Response(cfg, message, a));
-            });
+			messageAction.Start();     
+		}
 
-            messageAction.Start();     
-        }
+		protected virtual string QueryString(PluginConfig cfg, Message message)
+		{
 
-        protected virtual string QueryString(PluginConfig cfg, Message message)
-        {
+			return "";
+		}
 
-            return "";
-        }
+		protected virtual string Response(PluginConfig cfg, Message message, object dbData)
+		{
+			return dbData.ToString();
+		}
 
-        protected virtual string Response(PluginConfig cfg, Message message, object dbData)
-        {
-            return dbData.ToString();
-        }
+		protected virtual async Task<object> ExecuteCmd()
+		{
+			return await cmd.ExecuteScalarAsync();
+		}
 
-        protected virtual async Task<object> ExecuteCmd()
-        {
-            return await cmd.ExecuteScalarAsync();
-        }
-
-        
-    }
+		
+	}
 }

@@ -3,45 +3,51 @@ using System.Linq;
 using System.Text;
 using System.Net.Sockets;
 
-namespace MOTSharp
+namespace TwitchBot.Classes
 {
-	public class Bot
+	public abstract class BotBase
 	{
-		
-		protected DataTypes.Credentials cred;
 
-		// Incoming irc buffer
+
+		
+		/// <summary>
+		/// Incoming IRC Message Buffer
+		/// </summary>
 		protected string incoming = String.Empty;
 
-
+		/// <summary>
+		/// Socket Connection Object
+		/// </summary>
 		protected TcpClient SockConn;
+
+		/// <summary>
+		/// Socket Stream Object
+		/// </summary>
 		protected NetworkStream SockStream;
-		protected bool running = true;
-   
 
-		public Bot(string server, int port, string nick, string pass) : this(nick, pass)
-		{// Contect to twitch
+
+		public BotBase(string server, int port)
+		{ 
 			SockConn = new TcpClient(server, port);
-			SockStream = SockConn.GetStream();             
+			SockStream = SockConn.GetStream();
+			
 		}
 
-		protected Bot(string nick, string pass)
-		{
-			cred = new DataTypes.Credentials(nick, pass);
-		}
 
-		virtual public void send(string message)
+
+		virtual public void Send(string message)
 		{
-			if ( SockConn.Connected ){
-				
+			if (SockConn.Connected)
+			{
+
 				//OnSend(message);
 				// I think this should be UTF8
-				var data = Encoding.UTF8.GetBytes(message.TrimEnd(new char[] { '\r', '\n' }) + "\r\n");
+				var data = Encoding.UTF8.GetBytes(message.TrimEnd('\r', '\n') + "\r\n");
 				SockStream.Write(data, 0, data.Length);
 			}
 		}
 
-		virtual protected string receive()
+		virtual protected string Receive()
 		{
 			if (SockConn.Connected)
 			{
@@ -57,7 +63,7 @@ namespace MOTSharp
 			}
 		}
 
-		virtual protected string receiveLine()
+		virtual protected string ReceiveLine()
 		{
 			string bufferedLine = string.Empty;
 
@@ -80,7 +86,7 @@ namespace MOTSharp
 			{
 				while (bufferedLine == string.Empty)
 				{
-					incoming += receive();
+					incoming += Receive();
 					PartString();
 				}
 			}

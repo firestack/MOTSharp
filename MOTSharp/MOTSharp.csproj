@@ -74,6 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\Config.cs" />
     <Compile Include="Bots\bot.cs" />
     <Compile Include="Attributes\Command.cs" />
     <Compile Include="Bots\TestBot.cs" />

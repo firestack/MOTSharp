@@ -7,12 +7,12 @@ using MOTSharp.DataTypes;
 
 namespace MOTSharp.Plugins
 {
-    [Attributes.PluginEnabled(true, true)]
-    class DBMessageCount : DataBaseQuery
-    {
-        protected override string QueryString(PluginConfig cfg, Message message)
-        {
-            return "SELECT COUNT(message) FROM messages";
-        }
-    }
+	[Attributes.PluginEnabled(true, true)]
+	class DBMessageCount : DataBaseQuery
+	{
+		protected override string QueryString(PluginConfig cfg, Message message)
+		{
+			return "SELECT COUNT(message) FROM messages";
+		}
+	}
 }

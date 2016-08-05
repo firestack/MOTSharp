@@ -10,16 +10,16 @@ using MOTSharp.Enums;
 
 namespace MOTSharp.Plugins
 {
-    [Attributes.PluginEnabled(true)]
-    class LeaveOperator : IPlugin
-    {
-        [Attributes.Command(Permissions.SUPERUSER, MsgAction.PRIVMSG, ">leave")]
-        public override void Execute(MaskOfTruth bot, PluginConfig cfg, Message message)
-        {
-            foreach (string channel in message.message.Split(new char[] { ' ' }).Skip(1))
-            {
-                bot.Leave(channel);
-            }
-        }
-    }
+	[Attributes.PluginEnabled(true)]
+	class LeaveOperator : IPlugin
+	{
+		[Attributes.Command(Permissions.SUPERUSER, MsgAction.PRIVMSG, ">leave")]
+		public override void Execute()
+		{
+			foreach (string channel in message.message.Split(new char[] { ' ' }).Skip(1))
+			{
+				bot.Leave(channel);
+			}
+		}
+	}
 }

@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MOTSharp", "MOTSharp\MOTSharp.csproj", "{E339F770-FEE9-4535-963F-43DEE250084C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitchBot", "TwitchBot\TwitchBot.csproj", "{259E431C-E781-48C7-9680-C2049FCABF21}"
+EndProject
 Global
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -15,6 +20,10 @@ Global
 		{E339F770-FEE9-4535-963F-43DEE250084C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E339F770-FEE9-4535-963F-43DEE250084C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E339F770-FEE9-4535-963F-43DEE250084C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{259E431C-E781-48C7-9680-C2049FCABF21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{259E431C-E781-48C7-9680-C2049FCABF21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{259E431C-E781-48C7-9680-C2049FCABF21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{259E431C-E781-48C7-9680-C2049FCABF21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

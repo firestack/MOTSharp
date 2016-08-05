@@ -6,50 +6,50 @@ using System.Threading.Tasks;
 
 namespace MOTSharp.Bots
 {
-    class TestBot : MaskOfTruth
-    {
-        System.IO.StreamReader fin;
-        public TestBot(string server, int port, string config, string filename) : base(server, port, config)
-        {
-            fin = new System.IO.StreamReader(filename);
-            OnReceive = (string M) =>
-            {
-                var incomingMessage = DataTypes.Message.ParseMessageString (this, M);
-                if (incomingMessage.isValid)
-                {
-                    OnMessage(incomingMessage);
-                }
-            };
-            OnSend = (S) => { };
-        }
+	class TestBot : MaskOfTruth
+	{
+		System.IO.StreamReader fin;
+		public TestBot(string server, int port, string config, string filename) : base(server, port, config)
+		{
+			fin = new System.IO.StreamReader(filename);
+			OnReceive = (string M) =>
+			{
+				var incomingMessage = DataTypes.Message.ParseMessageString (this, M);
+				if (incomingMessage.isValid)
+				{
+					OnMessage(incomingMessage);
+				}
+			};
+			OnSend = (S) => { };
+		}
 
-        public override void send(string message)
-        {
-            Console.WriteLine("::OFFLINE>> " + message);
-        }
+		public override void send(string message)
+		{
+			Console.WriteLine("::OFFLINE>> " + message);
+		}
 
-        protected string ReadFileLine()
-        {
-            var returnString = "";
-            if (fin.EndOfStream)
-            {
-                running = false;
-            }
-            else
-            {
-                returnString = fin.ReadLine();
-            }
-            return returnString;
-        }
+		protected string ReadFileLine()
+		{
+			var returnString = "";
+			if (fin.EndOfStream)
+			{
+				running = false;
+			}
+			else
+			{
+				returnString = fin.ReadLine();
+			}
+			return returnString;
+		}
 
-        protected override string receive()
-        {
-            return ReadFileLine();
-        }
+		protected override string receive()
+		{
+			return ReadFileLine();
+		}
 
-        protected override string receiveLine()
-        {
-            return ReadFileLine();
-        }
-    }
+		protected override string receiveLine()
+		{
+			return ReadFileLine();
+		}
+	}
 }

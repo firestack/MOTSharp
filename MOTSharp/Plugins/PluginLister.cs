@@ -8,18 +8,18 @@ using MOTSharp.DataTypes;
 
 namespace MOTSharp.Plugins
 {
-    
-    class PluginLister : IPlugin
-    {
-        [Attributes.Command(Enums.Permissions.SUPERUSER, Enums.MsgAction.PRIVMSG, ">plugins")]
-        public override void Execute(MaskOfTruth bot, PluginConfig cfg, Message message)
-        {
-            string messageInfo = "The plugins in the system currently are: ";
-            foreach (var info in bot.pluginDispatch.invokeList)
-            {
-                messageInfo += info.Item1.ToString() + " : ";
-            }
-            bot.PM(message.channel, messageInfo);
-        }
-    }
+	
+	class PluginLister : IPlugin
+	{
+		[Attributes.Command(Enums.Permissions.SUPERUSER, Enums.MsgAction.PRIVMSG, ">plugins")]
+		public override void Execute()
+		{
+			string messageInfo = "The plugins in the system currently are: ";
+			foreach (var info in bot.pluginDispatch.invokeList)
+			{
+				messageInfo += info.Item1.ToString() + " : ";
+			}
+			bot.PM(message.channel, messageInfo);
+		}
+	}
 }

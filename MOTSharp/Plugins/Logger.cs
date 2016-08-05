@@ -10,27 +10,27 @@ using MOTSharp.Enums;
 
 namespace MOTSharp.Plugins
 {
-    [Attributes.PluginEnabled(true)]
-    class Logger : IPlugin
-    {
-        System.IO.StreamWriter fout;
+	[Attributes.PluginEnabled(true)]
+	class Logger : IPlugin
+	{
+		System.IO.StreamWriter fout;
 
-        public Logger()
-        {
-            fout = new System.IO.StreamWriter("log.txt", true);
-            fout.AutoFlush = true;
-        }
+		public Logger()
+		{
+			fout = new System.IO.StreamWriter("log.txt", true);
+			fout.AutoFlush = true;
+		}
 
-        ~Logger()
-        {
-            //fout.Close();
-        }
+		~Logger()
+		{
+			//fout.Close();
+		}
 
-        [Attributes.Command(Permissions.TMI, MsgAction.ALL, "")]
-        public override void Execute(MaskOfTruth bot, PluginConfig cfg, Message message)
-        {
-            fout.WriteLine(message.raw);
+		[Attributes.Command(Permissions.TMI, MsgAction.ALL, "")]
+		public override void Execute()
+		{
+			fout.WriteLine(message.raw);
 
-        }
-    }
+		}
+	}
 }

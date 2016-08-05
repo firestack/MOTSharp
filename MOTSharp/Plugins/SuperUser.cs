@@ -10,13 +10,14 @@ using MOTSharp.Enums;
 
 namespace MOTSharp.Plugins
 {
-    [Attributes.PluginEnabled(true, true)]
-    class SuperUser : IPlugin
-    {
-        [Attributes.Command(Permissions.SUPERUSER, MsgAction.PRIVMSG, ">superuser add")]
-        public override void Execute(MaskOfTruth bot, PluginConfig cfg, Message message)
-        {
-            bot.PM(message.channel, "Haha, No");
-        }
-    }
+	[Attributes.PluginEnabled(true, true)]
+	class SuperUser : IPlugin
+	{
+		[Attributes.Command(Permissions.SUPERUSER, MsgAction.PRIVMSG, ">superuser add")]
+		public override void Execute()
+		{
+
+			bot.PM(message.channel, "Haha, No");
+		}
+	}
 }
