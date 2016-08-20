@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{259E431C-E781-48C7-9680-C2049FCABF21}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{C3239D11-71E3-42BA-A276-C458F3357548}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TwitchBot</RootNamespace>
-    <AssemblyName>TwitchBot</AssemblyName>
+    <RootNamespace>MOT</RootNamespace>
+    <AssemblyName>MOT</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -20,18 +22,29 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\TwitchBot.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\TwitchBot.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Npgsql, Version=3.1.7.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.3.1.7\lib\net451\Npgsql.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,49 +55,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\Command.cs" />
-    <Compile Include="Attributes\Global.cs" />
-    <Compile Include="Attributes\PluginEnabled.cs" />
-    <Compile Include="Attributes\Range.cs" />
-    <Compile Include="BuiltinPlugins\JoinOperator.cs" />
-    <Compile Include="BuiltinPlugins\LeaveOperator.cs" />
-    <Compile Include="BuiltinPlugins\OnJoin.cs" />
-    <Compile Include="BuiltinPlugins\OnLeave.cs" />
-    <Compile Include="BuiltinPlugins\Ping.cs" />
-    <Compile Include="BuiltinPlugins\PluginLister.cs" />
-    <Compile Include="BuiltinPlugins\PrettyPrint.cs" />
-    <Compile Include="BuiltinPlugins\Quit.cs" />
-    <Compile Include="BuiltinPlugins\Reconnect.cs" />
-    <Compile Include="Classes\Bot.cs" />
-    <Compile Include="Classes\BotBase.cs" />
-    <Compile Include="Util\ConfigReflector.cs" />
-    <Compile Include="Classes\EventHandler.cs" />
-    <Compile Include="Classes\Credentials.cs" />
-    <Compile Include="Classes\MessageSocket.cs" />
-    <Compile Include="Classes\Operator.cs" />
-    <Compile Include="Classes\Plugin.cs" />
-    <Compile Include="Classes\PropDict.cs" />
-    <Compile Include="Interfaces\IConfigProvider.cs" />
-    <Compile Include="Message\Message.cs" />
-    <Compile Include="Message\ECommand.cs" />
-    <Compile Include="Message\EPermissions.cs" />
-    <Compile Include="Message\EScope.cs" />
-    <Compile Include="Message\BaseMessage.cs" />
-    <Compile Include="Message\NoTags.cs" />
-    <Compile Include="Message\NoTagsMessage.cs" />
-    <Compile Include="Message\PingMessage.cs" />
-    <Compile Include="Message\Tags.cs" />
-    <Compile Include="Message\TagsMessage.cs" />
+    <Compile Include="Ext\PGDBExt.cs" />
+    <Compile Include="Ext\UriExt.cs" />
+    <Compile Include="JSON\configFile.cs" />
+    <Compile Include="JSON\user.cs" />
+    <Compile Include="Plugins\BannedWordOperator.cs" />
+    <Compile Include="Plugins\DataBaseQuery.cs" />
+    <Compile Include="Plugins\DBMessageCount.cs" />
+    <Compile Include="Plugins\LinkBan.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util\EnumExt.cs" />
-    <Compile Include="Util\UriExt.cs" />
-    <Compile Include="Util\Helpers.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Bootstrap\" />
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Todo.txt" />
+    <ProjectReference Include="..\TwitchBot\TwitchBot.csproj">
+      <Project>{259e431c-e781-48c7-9680-c2049fcabf21}</Project>
+      <Name>TwitchBot</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

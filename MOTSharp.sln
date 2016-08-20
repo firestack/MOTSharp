@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MOTSharp", "MOTSharp\MOTSha
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwitchBot", "TwitchBot\TwitchBot.csproj", "{259E431C-E781-48C7-9680-C2049FCABF21}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MOT", "MOT\MOT.csproj", "{C3239D11-71E3-42BA-A276-C458F3357548}"
+EndProject
 Global
 	GlobalSection(Performance) = preSolution
 		HasPerformanceSessions = true
@@ -24,6 +26,10 @@ Global
 		{259E431C-E781-48C7-9680-C2049FCABF21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{259E431C-E781-48C7-9680-C2049FCABF21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{259E431C-E781-48C7-9680-C2049FCABF21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3239D11-71E3-42BA-A276-C458F3357548}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3239D11-71E3-42BA-A276-C458F3357548}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3239D11-71E3-42BA-A276-C458F3357548}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3239D11-71E3-42BA-A276-C458F3357548}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,13 +11,13 @@ namespace TwitchBot
 		///<summary>
 		/// This is probably an expensive function
 		///</summary>
-		public static IEnumerable<Type> GetEnumerableOfType<T>()
+		internal static IEnumerable<Type> GetTypesInAssembly<T>()
 		{
 			Type type = typeof(T);
 			IEnumerable<Type> types = AppDomain.CurrentDomain.GetAssemblies()
 				.SelectMany(s => s.GetTypes())
 				.Where(p => type.IsAssignableFrom(p) && !p.IsAbstract);
-
+			
 			return types;
 		}
 	}

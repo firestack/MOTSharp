@@ -25,6 +25,7 @@ namespace MOTSharp
 				{
 					if (message.message.StartsWith(methodAttribute.command) || methodAttribute.command == String.Empty)
 					{
+						// Config Section
 						DataTypes.GenericConfig config = null;
 						switch (message.action.GetMessageScope())
 						{
@@ -38,7 +39,7 @@ namespace MOTSharp
 							default:
 								return;
 						}
-						
+						// Config Section
 						var cfg = config.GetPluginConfig(plugin.Item1);
 						if (cfg.enabled)
 						{
@@ -55,6 +56,7 @@ namespace MOTSharp
 									cfg.data = 0;
 								}
 							}
+							// Invoke
 							plugin.Item1.Invoke(parent, cfg, message);
 						}
 						

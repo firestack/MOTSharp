@@ -6,7 +6,6 @@ namespace MOTSharp {
 	class Program {
 		static void Main(string[] args) {
 
-			
 			var MOT = new Bots.MaskOfTruth("irc.chat.twitch.tv", 80, @"Data/config.json");
 
 			MOT.SuperUsers.AddRange(new string[] { "bomb_mask" });
@@ -18,10 +17,6 @@ namespace MOTSharp {
 			};
 
 			MOT.start();
-
-			//End:
-				//Console.WriteLine("\nPress Enter to continue...");
-				//Console.ReadKey();
 		}
 	}
 }
