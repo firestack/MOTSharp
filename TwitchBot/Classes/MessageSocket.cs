@@ -90,11 +90,7 @@ namespace TwitchBot.Classes
 			
 			if (sockConn.Connected)
 			{
-				sWriter.WriteLineAsync(message);
-				//OnSend(message);
-				// I think this should be UTF8
-				var data = Encoding.UTF8.GetBytes(message.TrimEnd('\r', '\n') + "\r\n");
-				sockStream.Write(data, 0, data.Length);
+				sWriter.WriteLine(message);
 			}
 		}
 
@@ -124,32 +120,7 @@ namespace TwitchBot.Classes
 		/// <returns>Line read from server</returns>
 		virtual protected string ReceiveLine()
 		{
-			string bufferedLine = string.Empty;
-
-			// Utility string parser lambda(func)
-			Action PartString = () =>
-			{
-				var temp = incoming.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-				if (temp.Length > 1)
-				{
-					bufferedLine = temp[0];
-					incoming = string.Join("\r\n", temp.Skip(1));
-				}
-			};
-
-			if (incoming.Contains("\r\n"))
-			{
-				PartString();
-			}
-			else
-			{
-				while (bufferedLine == string.Empty)
-				{
-					incoming += Receive();
-					PartString();
-				}
-			}
-			return bufferedLine;
+			return Receive();
 		}
 	}
 }

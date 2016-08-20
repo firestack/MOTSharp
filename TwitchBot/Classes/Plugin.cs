@@ -11,6 +11,5 @@ namespace TwitchBot.Classes
 	/// </summary>
 	[Attributes.PluginEnabled(enabled = true, exposed = true)]
 	public abstract class Plugin : Operator
-	{
-	}
+	{ }
 }

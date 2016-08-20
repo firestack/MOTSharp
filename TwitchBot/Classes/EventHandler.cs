@@ -23,11 +23,22 @@ namespace TwitchBot.Classes
 		/// </summary>
 		public BotBase bot;
 
+		//public Dictionary<string, >
+
 		/// <summary>
 		/// Plugins in the current context
 		/// </summary>
 		public Dictionary<Message.ECommand, List<Tuple<Operator, Attributes.Command>>> plugins = new Dictionary<Message.ECommand, List<Tuple<Operator, Attributes.Command>>>();
-		
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public List<Tuple<Operator, Attributes.Command>> operators = new List<Tuple<Operator, Attributes.Command>>();
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="msg"></param>
 		public void InvokePlugins(Message.Message msg)
 		{
 			foreach(var plugin in plugins[msg.action])
@@ -44,6 +55,9 @@ namespace TwitchBot.Classes
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		public void LoadPlugins()
 		{
 			foreach(var op in Helpers.GetTypesInAssembly<Operator>())
@@ -75,11 +89,38 @@ namespace TwitchBot.Classes
 						
 					}
 
+					operators.Add(Tuple.Create(cache, attr.First()));
+
 					cache.Setup(bot);
 					cache = null;
 				}
 
 			}
 		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="channel"></param>
+		/// <returns></returns>
+		public string SerializeConfig(string channel)
+		{
+			return string.Empty;
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public string SerializeConfig()
+		{
+			var d = new Dictionary<string, object>();
+			foreach(var ob in operators)
+			{
+				d[ob.Item1.GetType().ToString()] = ob.Item1;
+			}
+			return Newtonsoft.Json.JsonConvert.SerializeObject(d);
+		}
+
 	}
 }

@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace TwitchBot.Message
 {
+	/// <summary>
+	/// 
+	/// </summary>
 	public abstract class BaseMessage : Classes.PropDict
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		protected Classes.BotBase bot;
 
 		/// <summary>
@@ -18,6 +24,7 @@ namespace TwitchBot.Message
 		/// <returns>Parsed message object</returns>
 		public static Message ParseMessageString(Classes.BotBase bot, string msgStr)
 		{
+			
 			// Parse Base Message
 			Message msg = null;
 			if (msgStr.StartsWith("@"))

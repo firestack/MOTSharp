@@ -7,9 +7,18 @@ using System.Threading.Tasks;
 namespace TwitchBot.Message
 {
     // TODO: Add userid to message, TMI can be user 0
+	/// <summary>
+	/// 
+	/// </summary>
 	public abstract class Message : BaseMessage
 	{
+		/// <summary>
+		/// 
+		/// </summary>
 		protected ECommand? actionCache;
+		/// <summary>
+		/// 
+		/// </summary>
 		public override ECommand action
 		{
 			get
@@ -35,7 +44,13 @@ namespace TwitchBot.Message
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		protected string channelCache;
+		/// <summary>
+		/// 
+		/// </summary>
 		public override string channel
 		{
 			get
@@ -48,11 +63,23 @@ namespace TwitchBot.Message
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		public override bool isValid { get { return !string.IsNullOrWhiteSpace(raw); } }
 
+		/// <summary>
+		/// 
+		/// </summary>
 		public override bool isUserMessage { get { return action == ECommand.PRIVMSG; } }
 
+		/// <summary>
+		/// 
+		/// </summary>
 		protected string prefixCache;
+		/// <summary>
+		/// 
+		/// </summary>
 		public override string prefix
 		{
 			get
@@ -65,7 +92,13 @@ namespace TwitchBot.Message
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		protected List<string> commandCache;
+		/// <summary>
+		/// 
+		/// </summary>
 		public override List<string> command
 		{
 			get
@@ -77,8 +110,14 @@ namespace TwitchBot.Message
 				return commandCache;
 			}
 		}
-
+		
+		/// <summary>
+		/// 
+		/// </summary>
 		protected string messageCache;
+		/// <summary>
+		/// 
+		/// </summary>
 		public override string message
 		{
 			get
@@ -91,9 +130,19 @@ namespace TwitchBot.Message
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		protected List<string> bodyCache;
+		/// <summary>
+		/// 
+		/// </summary>
 		protected virtual List<string> body { get; }
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
 		public override string ToString()
 		{
 			return raw;

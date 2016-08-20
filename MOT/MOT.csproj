@@ -63,6 +63,7 @@
     <Compile Include="Plugins\DataBaseQuery.cs" />
     <Compile Include="Plugins\DBMessageCount.cs" />
     <Compile Include="Plugins\LinkBan.cs" />
+    <Compile Include="Plugins\TestPlugin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

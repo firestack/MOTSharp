@@ -30,32 +30,32 @@ namespace TwitchBot.Classes
 		}
 
 		/// <summary>
-		/// 
+		/// Basic Bot Event 
 		/// </summary>
 		public delegate void BotEvent(BotBase sender);
 
 		/// <summary>
-		/// 
+		/// Event called when the bot begins startup
 		/// </summary>
 		public event BotEvent OnStartup;
 
 		/// <summary>
-		/// 
+		/// Event called when the bot begins shutdown
 		/// </summary>
 		public event BotEvent OnShutdown;
 
 		/// <summary>
-		/// 
+		/// list of users with extrodinary powers
 		/// </summary>
 		public HashSet<string> superusers = new HashSet<string>();
 
 		/// <summary>
-		/// 
+		/// Length of time between messages on the slow buffer
 		/// </summary>
 		public float slowLength = 1.7f;
 
 		/// <summary>
-		/// 
+		/// Length of time between messages on the fast buffer
 		/// </summary>
 		public float fastLength = 0.07f;
 
@@ -93,6 +93,10 @@ namespace TwitchBot.Classes
 				_running = value;
 			}
 		}
+
+		/// <summary>
+		/// Behind the scenes running variable
+		/// </summary>
 		protected bool _running = true;
 
 		/// <summary>
@@ -115,12 +119,12 @@ namespace TwitchBot.Classes
 		}
 
 		/// <summary>
-		/// 
+		/// Currently Joined Channels
 		/// </summary>
 		public HashSet<string> channels = new HashSet<string>();
 
 		/// <summary>
-		/// 
+		/// User credentials
 		/// </summary>
 		protected Credentials cred;
 
@@ -291,6 +295,9 @@ namespace TwitchBot.Classes
 			RequestTags(tags.ToList());
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		public override void Disconnect()
 		{
 			if(sockConn != null)
@@ -300,6 +307,10 @@ namespace TwitchBot.Classes
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="joinChannel"></param>
 		public void Login(bool joinChannel = false)
 		{
 			Send(cred.PASS);
@@ -311,11 +322,18 @@ namespace TwitchBot.Classes
 			}
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
 		public void Logout()
 		{
 			Send("QUIT");
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="cred"></param>
 		public virtual void Start(Credentials cred)
 		{
 			OnStartup?.Invoke(this);
