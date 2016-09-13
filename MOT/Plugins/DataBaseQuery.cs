@@ -9,16 +9,22 @@ using Npgsql;
 namespace MOT.Plugins
 {
 
-	[TwitchBot.Attributes.PluginEnabled(false, false)]
+	//[TwitchBot.Attributes.PluginEnabled(false, false)]
 	[TwitchBot.Attributes.Command(accessLevel = TwitchBot.Message.EPermissions.MOD, respondsTo = TwitchBot.Message.ECommand.PRIVMSG, prefix = '>', suffix = "info")]
-	class DataBaseQuery : TwitchBot.Classes.Plugin
+	public abstract class DataBaseQuery : TwitchBot.Classes.Plugin
 	{
+		[NonSerialized]
 		public NpgsqlConnection db;
+
+		[NonSerialized]
 		public NpgsqlCommand cmd = new NpgsqlCommand();
+
+		[NonSerialized]
 		public Uri pgurl;
 
-		public DataBaseQuery()
+		public override void Init()
 		{
+			base.Init();
 			db = Ext.PGBDExt.ConnectionFromURL(new Uri(@"postgres://postgres:mysecretpassword@107.170.251.210:32489/dev"));
 			db.Open();
 			cmd.Connection = db;

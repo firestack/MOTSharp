@@ -60,6 +60,7 @@
     <Compile Include="JSON\configFile.cs" />
     <Compile Include="JSON\user.cs" />
     <Compile Include="Plugins\BannedWordOperator.cs" />
+    <Compile Include="Plugins\ClearChat.cs" />
     <Compile Include="Plugins\DataBaseQuery.cs" />
     <Compile Include="Plugins\DBMessageCount.cs" />
     <Compile Include="Plugins\LinkBan.cs" />

@@ -1,0 +1,3 @@
+[submodule "TwitchBotA/TwitchBot"]
+	path = TwitchBotA/TwitchBot
+	url = https://github.com/firestack/TwitchBot.git

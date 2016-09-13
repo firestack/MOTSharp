@@ -14,8 +14,12 @@ namespace MOT
 	{
 		static void Main(string[] args)
 		{
-			var bot = new TwitchBot.Classes.Bot() { server = "irc.chat.twitch.tv", port = 80, superusers = new HashSet<string>() { "bomb_mask" } };
-			bot.Start(TwitchBot.Classes.Credentials.New("TheMaskOfTruth", "5u7dxcgvtuqxgvds2pc1422cwqk8c8"));
+			new TwitchBot.Classes.BotComponentsConfig
+			{
+				bot = new TwitchBot.Classes.Bot() { server = "irc.chat.twitch.tv", port = 80 },
+				superUsers = new HashSet<string>() { "bomb_mask" },
+				cred = TwitchBot.Classes.Credentials.New("TheMaskOfTruth", "5u7dxcgvtuqxgvds2pc1422cwqk8c8"),
+			}.StartBot();
 		}
 	}
 }

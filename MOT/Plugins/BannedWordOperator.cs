@@ -10,7 +10,7 @@ namespace MOT.Plugins
 	[TwitchBot.Attributes.Command( accessLevel = TwitchBot.Message.EPermissions.TMI, respondsTo = TwitchBot.Message.ECommand.PRIVMSG)]
 	class BannedWordOperator : TwitchBot.Classes.Plugin
 	{
-		public string[] words;
+		public string[] words = new string[0];
 		
 		public string reason = "Reminder: K appa and it's variants are all banned here, they show up as *** for everyone else but yourself. if you use it you will get purged/timed out.";
 
